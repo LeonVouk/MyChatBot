@@ -4,24 +4,36 @@ intents:
   - greet
   - goodbye
   - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
   - bot_challenge
+  - technical_support
+  - provide_acc_info
+  - provide_sub_issue
+  - internet_issues
+  - account_balance
+  - challenge_answer
+  - terminate_account
+  - give_reason
+  - deny_offer
+
+entities:
+  - facility
+  - transaction_number
+
+slots:
+  facility:
+    type: categorical
+    values:
+      - internet
+      - tv
+      - mobile
+    mappings:
+      - type: from_entity
+        entity: facility
+
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
+  - text: "Hey! How can I help you?"
 
   utter_goodbye:
   - text: "Bye"
@@ -29,6 +41,36 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
+  utter_ask_if_customer:
+    - text: "Do you have an account in our service?"
+
+  utter_ask_for_account:
+    - text: "Please provide me with an account number or name?"
+
+  utter_provide_help:
+    - text: "Please give me a second to connect you with our technical support operators"
+
+  utter_send_to_accounting:
+    - text: "Please wait while I connect you with our accounting department."
+
+  utter_ask_for_info:
+    - text: "Can you please let us know what the reason for your decision is?"
+
+  utter_provide_better_package:
+    - text: "We are prepared to offer you a 15% reduction in fees for the next year and a bump in your connection speed"
+
+  utter_confirmation_of_termination:
+    - text: "We are sorry you feel that way, I'm going to terminate your account. Have a nice day."
+
+actions:
+ - action_check_account
+ - action_ask_issue
+ - action_find_account_balance
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+
+
+
+

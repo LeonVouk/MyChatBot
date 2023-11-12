@@ -1,6 +1,13 @@
 version: "3.1"
 
 nlu:
+
+- intent: provide_sub_issue
+  examples: |
+    - [internet](facility)
+    - [tv](facility)
+    - [mobile](facility)
+
 - intent: greet
   examples: |
     - hey
@@ -39,53 +46,66 @@ nlu:
     - that sounds good
     - correct
 
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
-
-- intent: mood_great
-  examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent:  technical_support
+  examples: |
+    - I have an issue
+    - speak with a technician
+    - I need help
+
+- intent:  provide_acc_info
+  examples: |
+    - My account number is
+    - Account under the name
+
+- intent: internet_issues
+  examples: |
+    - my connection is down
+    - my connection is always dropping
+    - my connection is very slow
+    - I'm having issues connecting into any site
+    - no connection
+    - losing connection
+
+- intent:  account_balance
+  examples: |
+    - I need to check the balance of my account
+    - Do I owe any money?
+    - I have no idea how much I owe you
+    - Please inform me on my account balance
+
+- intent:  challenge_answer
+  examples: |
+    - I made a payment of that sum 3 days ago, are you sure?
+    - I have already paid that.
+    - There is no way I owe that much.
+
+- intent:  terminate_account
+  examples: |
+    - I would like to terminate my account please
+    - I would like to get out of my account
+    - I am stopping my subscription
+    - I am leaving and going with another company
+
+- intent:  give_reason
+  examples: |
+    - Your services are not up to par
+    - Your services are too expensive
+    - I got a better package from another company
+    - I can't afford your services
+    - You customer support is terrible
+    - You technical support is always slow
+
+
+- intent: deny_offer
+  examples: |
+    - I'm not staying
+    - Sorry I need you to terminate my account
+    - This is not enough to keep me
+    - There is no way I continue with you

@@ -2,29 +2,43 @@ version: "3.1"
 
 stories:
 
-- story: happy path
+- story: technical support
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
+  - intent: technical_support
+  - action: utter_ask_if_customer
   - intent: affirm
-  - action: utter_happy
+  - action: utter_ask_for_account
+  - intent: provide_acc_info
+  - action: action_check_account
+  - intent: provide_sub_issue
+  - action: action_ask_issue
+  - intent: internet_issues
+  - action: utter_provide_help
 
-- story: sad path 2
+
+- story: check account balance
   steps:
   - intent: greet
   - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+  - intent: account_balance
+  - action: utter_ask_for_account
+  - intent: provide_acc_info
+  - action: action_find_account_balance
+  - intent: challenge_answer
+  - action: utter_send_to_accounting
+
+
+- story: ask for account termination
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: terminate_account
+  - action: utter_ask_for_account
+  - intent: provide_acc_info
+  - action: utter_ask_for_info
+  - intent: give_reason
+  - action: utter_provide_better_package
+  - intent: deny_offer
+  - action: utter_confirmation_of_termination
