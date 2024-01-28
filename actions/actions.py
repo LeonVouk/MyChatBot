@@ -9,10 +9,12 @@
 
 from typing import Any, Text, Dict, List
 
-from rasa_sdk import Action, Tracker
+from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 
 import random
+
+from rasa_sdk.types import DomainDict
 
 
 class ActionCheckAccount(Action):
@@ -63,3 +65,24 @@ class ActionFindAccountBalance(Action):
         dispatcher.utter_message(text=f"It seems that you owe {balance} euros.")
 
         return []
+
+
+class ValidateAccountNameForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_account_name_form"
+
+    def validate_account_name(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+
+        chitchat_intents = ["bot_challenge"]
+
+        if tracker.latest_message["intent"]["name"] in chitchat_intents:
+            dispatcher.utter_template(f"utter_bot_challenge", tracker)
+            return {"account_name": None}
+
+        return {"account_name": slot_value}

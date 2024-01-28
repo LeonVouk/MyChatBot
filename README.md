@@ -52,6 +52,48 @@ The bot needs to be able to
 ***
 ***
 
+
+# Forms
+***
+To incorporate forms the scenarios changed to be more formulaic and ask for the user's
+account early on in the stories. A slot was created to store the account name extracted by the form. An account name 
+is given, which in the future would be extracted from the input and compared with a database,
+and in return the bot affirms that the account has been found and asks for the user's issue.
+
+In the event that a different path is taken while the form is being handled, in this situation a token question is used
+of asking the bot if it's a bot. The bot answers the question and then returns to inquiring about the user's account.
+
+
+# Policies
+### RulePolicy
+The rule policy works best when we need the bot to behave in a specific manner no matter what has happened in the
+conversation up to this point. Using the policy alone completely breaks our chat bot since we've only implemented 
+rules that cover the ending of the conversation and the handling of account names. The RulePolicy can work really well
+in combination with other policies to take care of situations where specific information is needed for the conversation
+to continue correctly.
+
+## MemoizationPolicy
+The memoization policy works by leveraging the history of the current conversation to make predictions based on exact
+matches in the data the bot was trained on. The policy works flawlessly when encountering an input that can be found in
+the intents e.g "I would like to terminate my account please", but fails when a variation is given which has the same
+meaning e.g "I am done with your company.".
+
+## TEDPolicy
+As this policy uses a transformer model to predict the next action of the bot, the prediction is done based on the
+extracted context and natural language understanding of the underlying model. It doesn't seem to really fail at any task,
+but the excess training time and complexity added by the TED policy is lost when following formulaic paths, as one can
+find in the help required in our three stories. That being the case, the second there is any deviation from the examples
+seen, the TEDPolicy greatly outperforms the MemoizationPolicy, making it a staple in our model. Another caveat is that
+extracting forms and slots from inputs, is much more consistent and efficient with the RulePolicy, rather than the
+TEDPolicy, meaning that in that account, the TEDPolicy does get outperformed.
+
+## Our Implementation
+We implement a combination of the RulePolicy and TEDPolicy to take care of different abilities of our chatbot.
+The TEDPolicy takes care of the next action prediction and NLU of the user's intents and the RulePolicy leverages that
+and helps with extracting the required slots, handling the forms and providing the formulaic response that is required
+at points during the conversation of a user with an agent.
+
+
 # Future
 The bot needs to have access to a database with the customer information and be able to retrieve
 the customer accounts with their relevant information.

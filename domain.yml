@@ -19,7 +19,20 @@ entities:
   - facility
   - transaction_number
 
+forms:
+  account_name_form:
+    required_slots:
+      - account_name
+
 slots:
+  account_name:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: account_name_form
+            requested_slot: account_name
   facility:
     type: categorical
     values:
@@ -33,16 +46,16 @@ slots:
 
 responses:
   utter_greet:
-  - text: "Hey! How can I help you?"
+  - text: "Hello! How can I help you? Do you have an account in our service?"
 
   utter_goodbye:
   - text: "Bye"
 
+  utter_submit:
+    - text: "Thank you, account found. How may I help you today?"
+
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
-
-  utter_ask_if_customer:
-    - text: "Do you have an account in our service?"
 
   utter_ask_for_account:
     - text: "Please provide me with an account number or name?"
@@ -62,10 +75,15 @@ responses:
   utter_confirmation_of_termination:
     - text: "We are sorry you feel that way, I'm going to terminate your account. Have a nice day."
 
+  utter_bot_challenge:
+    - text: "I am a bot, powered by Rasa."
+
 actions:
  - action_check_account
  - action_ask_issue
  - action_find_account_balance
+ - utter_submit
+ - validate_account_name_form
 
 session_config:
   session_expiration_time: 60

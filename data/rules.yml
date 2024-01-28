@@ -11,3 +11,28 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Activate form
+  steps:
+  - intent: provide_acc_info
+  - action: account_name_form
+  - active_loop: account_name_form
+
+- rule: Submit form
+  condition:
+  - active_loop: account_name_form
+  steps:
+  - action: account_name_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit
+
+- rule: Interruption in name form
+  condition:
+  - active_loop: account_name_form
+  steps:
+  - intent: bot_challenge
+  - action: utter_bot_challenge
+  - action: account_name_form
+  - active_loop: account_name_form
